@@ -420,11 +420,15 @@
     <p style="font-size:12px; color:var(--c-text-faint); background:var(--c-gray-bg); border-radius:8px; padding:10px;">⚠️ このツールは参考情報を提供するものであり、医師による診断・治療決定に代わるものではありません。</p>
     <button class="start-btn" onclick="startQuiz()">チェックを始める →</button>
     <button class="start-btn" onclick="showExplain()" style="background:white;color:var(--c-primary);border:2px solid var(--c-primary);margin-top:10px;">🔬 治療の仕組みを見る</button>
+    <button class="start-btn" onclick="showEquol()" style="background:white;color:var(--c-primary);border:2px solid var(--c-primary);margin-top:10px;">⚖️ エクオール治療との違い</button>
   </div>
 </div>
 
 <!-- ===== EXPLAIN ===== -->
 <div id="screen-explain" class="screen"></div>
+
+<!-- ===== EQUOL COMPARISON ===== -->
+<div id="screen-equol" class="screen"></div>
 
 <!-- ===== QUESTIONS ===== -->
 <div id="screen-q" class="screen"></div>
@@ -927,6 +931,7 @@ function restart() {
   document.getElementById('screen-result').classList.remove('active');
   document.getElementById('screen-q').classList.remove('active');
   document.getElementById('screen-explain').classList.remove('active');
+  document.getElementById('screen-equol').classList.remove('active');
   document.getElementById('screen-intro').classList.add('active');
   window.scrollTo(0,0);
 }
@@ -937,6 +942,16 @@ function showExplain() {
   document.getElementById('progressText').textContent = '治療の仕組み';
   const el = document.getElementById('screen-explain');
   el.innerHTML = buildExplainHTML();
+  el.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function showEquol() {
+  document.getElementById('screen-intro').classList.remove('active');
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('progressText').textContent = 'エクオールとの違い';
+  const el = document.getElementById('screen-equol');
+  el.innerHTML = buildEquolHTML();
   el.classList.add('active');
   window.scrollTo(0,0);
 }
@@ -1113,6 +1128,82 @@ function buildExplainHTML() {
   `;
 }
 
+function buildEquolHTML() {
+  return `
+  <style>
+    .ex-card { margin:16px; background:var(--c-surface); border-radius:16px; padding:21px 17px; box-shadow:var(--shadow-card); }
+    .ex-step { display:inline-block; background:var(--c-primary); color:white; font-size:11px; font-weight:800; padding:4px 11px; border-radius:20px; margin-bottom:11px; letter-spacing:1px; }
+    .ex-title { font-size:16px; font-weight:800; color:var(--c-text); margin-bottom:9px; line-height:1.45; }
+    .ex-text  { font-size:13.5px; color:var(--c-text-soft); line-height:1.85; }
+    .ex-text b { color:var(--c-primary-dark); }
+
+    .stat-row { display:flex; gap:9px; margin:13px 0; }
+    .stat-box { flex:1; background:var(--c-primary-tint); border-radius:12px; padding:13px 8px; text-align:center; }
+    .stat-box .num { font-size:22px; font-weight:800; color:var(--c-primary); }
+    .stat-box .lbl { font-size:11px; color:var(--c-text-muted); margin-top:3px; }
+
+    .compare-row { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin:13px 0; }
+    .compare-box { border-radius:12px; padding:13px; font-size:12px; line-height:1.75; }
+    .compare-box h4 { font-size:13px; font-weight:800; margin-bottom:7px; }
+    .compare-box.blue { background:var(--c-primary-tint); color:var(--c-primary-dark); }
+    .compare-box.blue h4 { color:var(--c-primary-dark); }
+    .compare-box.gray { background:var(--c-gray-bg); color:var(--c-gray-text); }
+    .compare-box.gray h4 { color:var(--c-gray-text); }
+
+    .back-btn2 { display:block; width:calc(100% - 32px); margin:5px 16px 21px; padding:14px; background:white; color:var(--c-primary); border:2px solid var(--c-primary); border-radius:12px; font-size:15px; font-weight:700; font-family:'Hiragino Sans','Noto Sans JP',sans-serif; cursor:pointer; text-align:center; }
+    .start-btn2 { display:block; width:calc(100% - 32px); margin:0 16px 13px; padding:15px; background:linear-gradient(135deg,var(--c-primary),var(--c-primary-dark)); color:white; border:none; border-radius:12px; font-size:16px; font-weight:700; font-family:'Hiragino Sans','Noto Sans JP',sans-serif; cursor:pointer; text-align:center; box-shadow:0 4px 14px rgba(22,53,102,0.22); }
+  </style>
+
+  <div class="ex-card">
+    <div class="ex-step">STEP 1</div>
+    <div class="ex-title">エクオールとは？</div>
+    <div class="ex-text">エクオールは、大豆イソフラボン（ダイゼイン）が腸内細菌によって代謝されてできる成分です。女性ホルモン（エストロゲン）に似た<b>弱い作用</b>を持つとされ、更年期症状や関節の痛みへの効果が期待され、サプリメント（エクエル等）として販売されています。<br><br>ただし、日本人女性の<b>約半数はエクオールを作れない体質（非産生者）</b>とされており、効果には個人差があります。</div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-step">STEP 2</div>
+    <div class="ex-title">エクオールサプリの研究データ</div>
+    <div class="ex-text">2025年に発表された研究では、エクオールを体内で作れない体質の閉経前後の女性104名が、サプリメントを12週間飲み続けたところ、<b>「痛み」と「手・腕の使いやすさ」がどちらも改善した</b>と報告されています。</div>
+    <div class="stat-row">
+      <div class="stat-box"><div class="num">104<span style="font-size:13px">名</span></div><div class="lbl">対象人数</div></div>
+      <div class="stat-box"><div class="num">12<span style="font-size:13px">週間</span></div><div class="lbl">飲み続けた期間</div></div>
+      <div class="stat-box"><div class="num" style="font-size:16px;">両方<br>改善</div><div class="lbl">痛み・使いやすさ</div></div>
+    </div>
+    <div class="ex-text" style="margin-top:11px;">より詳しく言うと、痛みの強さを0〜100点で表す指標が平均34.0点改善、手や腕の使いにくさを0〜100点で表す指標が平均6.6点改善（点数が低いほど良好）し、いずれも統計的に意味のある差でした。</div>
+    <div style="font-size:11px;color:var(--c-text-faint);background:var(--c-primary-faint);border-radius:8px;padding:8px 10px;margin-top:10px;">出典：Yamada H, et al. Cureus 2025;17(7):e88013（PMID:40666269）</div>
+  </div>
+
+  <div class="ex-card" style="background:var(--c-gray-bg);">
+    <div class="ex-title" style="font-size:14px;">⚠️ この研究の限界</div>
+    <div class="ex-text">・<b>「飲まなかった人」との比較がありません。</b>偽の薬（プラセボ）を飲むグループや何も飲まないグループを用意せず、参加者全員が「本物のサプリを飲んでいる」と分かった状態で行われました。そのため、自然に良くなった可能性や、「効くはず」と思うことで楽に感じた可能性（思い込みの効果）を否定できません。論文の著者自身も「結果は慎重に解釈すべき」「本当に効果があるかは、より厳密な比較試験で確認する必要がある」と述べています。<br><br>・<b>サプリメントを作っている大塚製薬がお金を出した試験です。</b>共著者2名は大塚製薬の社員で、研究を行った医師も同社から講演料・コンサルティング料を受け取っています。</div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-step">STEP 3</div>
+    <div class="ex-title">動注治療との違い</div>
+    <div class="compare-row">
+      <div class="compare-box blue">
+        <h4>💉 動注治療</h4>
+        モヤモヤ血管に直接アプローチ<br>血管造影で原因を確認<br>116例で84.5%が改善<br>切開なし・日帰り<br>製薬会社からの資金提供なし
+      </div>
+      <div class="compare-box gray">
+        <h4>🌱 エクオール</h4>
+        全身的なホルモン補充的作用<br>血管そのものには作用せず<br>比較グループのない試験<br>本人が服用を認識(非盲検)<br>製造元企業が資金提供
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--c-text-faint);background:var(--c-primary-faint);border-radius:8px;padding:8px 10px;margin-top:10px;">出典：Miyazaki H et al. JVIR 2023（PMID:37295555）</div>
+  </div>
+
+  <div class="ex-card" style="background:#fffaf0; border:1px solid #f0e0c0;">
+    <div class="ex-title" style="font-size:14px;">当院の考え方</div>
+    <div class="ex-text">当院では、サプリメントの併用を否定するものではありません。しかし、動注治療は<b>国内外の4件の論文（オクノクリニック116例の調査、JVIR 2023の58例の臨床研究を含む）</b>で報告されており、<b>製薬会社からの資金提供はありません</b>。<br><br>痛みや炎症が強い場合は、原因となる血管に直接アプローチできるこの<b>動注治療をまずご検討いただくこと</b>をお勧めしています。<br><br>ご不明な点は診察時に担当医にご相談ください。</div>
+  </div>
+
+  <button class="start-btn2" onclick="startQuiz()">チェックを始める →</button>
+  <button class="back-btn2" onclick="restart()">← トップに戻る</button>
+  `;
+}
+
 // ===== AI CHATBOT =====
 const chatKB = [
   {
@@ -1207,6 +1298,10 @@ const chatKB = [
     keys: ['腎臓','腎機能','透析'],
     answer: `腎機能低下自体は動注治療の絶対的な禁忌ではありませんが、重度の腎機能障害がある場合は薬剤用量の調整や代替方法の検討が必要な場合があります。\n\n透析中の方・慢性腎不全の方は事前に担当医にお申し出ください。`
   },
+  {
+    keys: ['エクオール','エクエル','イソフラボン','大豆イソフラボン','サプリ','サプリメント','エクオールサプリ'],
+    answer: `エクオールは大豆イソフラボン（ダイゼイン）が腸内細菌によって代謝されてできる成分で、女性ホルモン（エストロゲン）に似た弱い作用を持つとされています。\n\n日本人女性の約半数は体質的にエクオールを作れない「非産生者」とされ、エクオール系サプリメント（エクエル等）はこの成分を補う目的で販売されています。\n\n【エクオールの研究について】\n2025年発表のパイロット試験では、エクオール非産生の閉経前後女性104名がサプリメントを12週間摂取し、運動時の痛み（VAS）が平均34.0mm改善、上肢機能（DASHスコア）が6.6改善したと報告されています（いずれもp<0.001）。\n（出典：Yamada H, et al. Cureus 2025;17(7):e88013, PMID:40666269）\n\nただし、この研究には重要な限界があります：\n• プラセボ群・対照群を設けない単群・非盲検試験で、論文中でも著者自身が「結果は慎重に解釈すべき」「ランダム化比較試験での確認が必要」と明記しています\n• 試験はサプリメント製造元の大塚製薬が資金提供しており、共著者2名は同社の社員、筆頭著者も同社から講演・コンサルティング料を受け取っています\n\n【動注治療との違い】\n動注治療は、痛みの原因となる「モヤモヤ血管（異常新生血管）」を血管造影で直接確認し、そこに薬液を注入して塞栓する、原因に直接アプローチする治療法です。116例の研究では3か月後に84.5%の方に痛みの改善が確認されています（出典：Miyazaki H et al. JVIR 2023, PMID:37295555）。\n\nエクオールは全身的なホルモン補充的アプローチであり、痛みの原因である血管そのものには直接作用しません。当院ではサプリメントの併用を否定するものではありませんが、動注治療は国内外の4件の論文（オクノクリニック116例の調査、JVIR 2023の58例の臨床研究を含む）で報告され、製薬会社からの資金提供もありません。痛みや炎症が強い場合は、まずこの動注治療をご検討いただくことをお勧めしています。\n\nご不明な点は診察時に担当医にご相談ください。`
+  },
 ];
 
 const chatQuickQ = [
@@ -1219,6 +1314,7 @@ const chatQuickQ = [
   '抗生剤アレルギーがあります',
   'いつから効果が出ますか？',
   '変形は治りますか？',
+  'エクオールサプリは効果がありますか？',
 ];
 
 let chatOpen = false;
